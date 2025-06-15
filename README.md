@@ -1,0 +1,5 @@
+Foram usados os padrões de projeto Strategy e state.
+O padrão Strategy foi utilizado para desacoplar o cálculo do frete da classe Pedido e do restante do sistema. Em vez de colocar regras fixas diretamente na entidade, controller ou serviço, foram criadas diferentes estratégias de cálculo de frete.
+Cada tipo de frete (terrestre ou aéreo) possui um calculo diferente. O Strategy permite que você encapsule essas lógicas em classes separadas, tornando o código mais flexível, organizado e fácil de manter, podendo adicionar posteriormente novas formas de envio com valores e calculos de fretes diferentes.
+O padrão State foi usado no projeto para resolver problemas relacionados à gestão de estados de um objeto (neste caso, um Pedido e seus diferentes StatusPedido). Essa escolha oferece diversas vantagens, especialmente em sistemas onde as regras de negócio e as transições de estados podem se tornar mais complicadas.
+O padrão State permite que o comportamento do objeto (Pedido) varie de acordo com o seu estado (StatusPedido)
