@@ -51,4 +51,19 @@ public class PedidoResource {
         Pedido Obj = pedidoService.update(id, objDto);
         return ResponseEntity.ok().body(new PedidoDTO(Obj));
     }
+    @PutMapping("/{id}/avancar")
+    @Operation(summary = "Avança o status do pedido",
+            description = "Avança o status de um pedido existente")
+    public ResponseEntity<PedidoDTO> avancar(@PathVariable Long id) {
+        Pedido statusPedido = pedidoService.avancar(id);
+        return ResponseEntity.ok(new PedidoDTO(statusPedido));
+    }
+
+    @PutMapping("/{id}/cancelar")
+    @Operation(summary = "Cancela do pedido",
+            description = "Cancela um pedido existente")
+    public ResponseEntity<PedidoDTO> cancelar(@PathVariable Long id) {
+        Pedido statusPedido = pedidoService.cancelar(id);
+        return ResponseEntity.ok(new PedidoDTO(statusPedido));
+    }
 }

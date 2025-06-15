@@ -39,4 +39,15 @@ public class PedidoService {
         oldObj = new Pedido(objDto);
         return pedidoRepo.save(oldObj);
     }
+    public Pedido avancar(Long id) {
+        Pedido statusPedido = findById(id);
+        statusPedido.avancarStatus();
+        return pedidoRepo.save(statusPedido);
+    }
+
+    public Pedido cancelar(Long id) {
+        Pedido statusPedido = findById(id);
+        statusPedido.cancelarPedido();
+        return pedidoRepo.save(statusPedido);
+    }
 }

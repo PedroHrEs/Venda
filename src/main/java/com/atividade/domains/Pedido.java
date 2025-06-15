@@ -34,6 +34,8 @@ public class Pedido {
     @JoinColumn(name="status")
     private StatusPedido statusPedido;
 
+    private Integer statusId;
+
     @ManyToOne
     @JoinColumn(name="idcliente")
     private Cliente cliente;
@@ -66,6 +68,38 @@ public class Pedido {
         this.cliente.setId(dto.getCliente());
         this.tipoFrete = TipoFrete.toEnum(dto.getTipoFrete());
         calcularValorTotal();
+    }
+
+    @PostLoad
+    private void carregarStatus() {
+        this.statusPedido = StatusPedido.toEnum(statusId);
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void atualizarStatusId() {
+        this.statusId = (statusPedido != null ? statusPedido.getId() : null);
+    }
+
+    public StatusPedido getStatus() {
+        if (statusPedido == null) {
+            statusPedido = StatusPedido.toEnum(statusId);
+        }
+        return statusPedido;
+    }
+
+    public void setStatus(StatusPedido novoEstado) {
+        this.statusPedido = novoEstado;
+        this.statusId = novoEstado.getId();
+    }
+
+
+    public void avancarStatus() {
+        setStatus(getStatus().avancar());
+    }
+
+    public void cancelarPedido() {
+        setStatus(getStatus().cancelar());
     }
 
     public void calcularValorTotal() {
